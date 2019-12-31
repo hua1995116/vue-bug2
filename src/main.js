@@ -1,3 +1,4 @@
+// import Vue from './vue.js'  // 正常
 import Vue from 'vue'
 import App from './App.vue'
 

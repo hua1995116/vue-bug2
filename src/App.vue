@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div>123456</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Vue from "./vue.js";
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  data() {
+    return {};
+  },
+  beforeCreate() {
+    if (this.$isServer) return;
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    this.popperVM = new Vue({
+      data: { node: "123" },
+      render() {
+        return this.node;
+      }
+    }).$mount();
+  },
+  mounted() {
+    if (this.popperVM) {
+      this.popperVM.node = (
+        <div>
+          23123
+          <div ref="abcd">1234</div>
+        </div>
+      );
+    }
+    window.cc = this;
+    this.$nextTick(() => {
+      document.body.appendChild(this.$refs.abcd);
+    });
+  },
+  methods: {
+    handleChange(value) {
+      console.log(value);
+    }
+  }
+};
+</script>
